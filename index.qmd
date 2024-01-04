@@ -1,0 +1,190 @@
+---
+title: "Introduction to S7, a New Object Oriented System for R"
+subtitle: "CCHMC RUG"
+author: "Cole Brokamp"
+date: "2024-01-10"
+format: 
+  revealjs:
+    theme: cole.scss
+    standalone: true
+    embed-resources: true
+    link-external-icon: false
+    link-external-newwindow: true
+---
+
+## 👋 &nbsp; Welcome
+
+&nbsp;
+
+[Join](https://outlook.office365.com/owa/r@cchmc.onmicrosoft.com/groupsubscription.ashx?action=join) the RUG Outlook group for updates and events: &nbsp;<https://t.ly/vRw7y>
+
+&nbsp;
+
+
+![](figs/join_rug.png)
+
+# Introduction to S7, a New Object Oriented System for R
+
+## Object Oriented Programming
+
+## Existing OOP in R
+
+### S3
+
+### S4
+
+## S7 is the sucessor to S3 and S7
+
+- community adoption, planning, development
+
+## Introduction to S7
+
+pull from vignettes and README
+
+# Address example
+
+## Address Character Strings
+
+Addresses often stored as combined strings or can be concatenated from other address components (e.g., "address line 1" and "address line 2")
+
+```{r}
+(x <- "3333 Burnet ave cincinnati OH 45219")
+```
+
+Cleaning and tagging the address extracts components using open natural language processing models:
+
+```{r}
+parcel::tag_address(x)
+
+parcel::tag_address("3333 Burnet Ave cincinnati oh 45219-2843")
+```
+
+## Challenge
+
+With a tibble full of addresses, how can we maintain tidy data with a character string returning a tibble with five columns?
+
+A common challenge faced by {sf}, {dplyr} or any other package that utilizes classes of vectors designed to be used in a data.frame.
+
+**Approach:** Use S7 package to create a new class for addresses that will interoperate with existing R objects and packages.
+
+## Define a New Class with S7
+
+```{r}
+library(S7)
+
+addr <- new_class(
+  "addr",
+  parent = class_character,
+  properties = list(
+    street_number = class_numeric,
+    street_name = class_character,
+    city = class_character,
+    state = class_character,
+    zip_code = class_character
+  ),
+  validator = function(self) {
+    if (any(nchar(self@zip_code) != 5)) {
+      "@zip_code must contain five characters"
+    }
+  }
+)
+```
+
+## Creating a new `addr` object
+
+```{r}
+addr("3333 Burnet Ave Cincinnati OH 45219",
+     street_number = 3333,
+     street_name = "Burnet Ave",
+     city = "Cincinnati",
+     state = "OH",
+     zip_code = "45219")
+```
+
+This comes with validation for classes of arguments:
+
+```{r}
+#| error: true
+addr("3333 Burnet Ave Cincinnati OH 45219",
+     street_number = "3333",
+     street_name = "Burnet Ave",
+     city = "Cincinnati",
+     state = "OH",
+     zip_code = "45219")
+```
+
+and for anything defined in `validator`:
+
+```{r}
+#| error: true
+addr("3333 Burnet Ave Cincinnati OH 45219",
+     street_number = 3333,
+     street_name = "Burnet Ave",
+     city = "Cincinnati",
+     state = "OH",
+     zip_code = "452191")
+```
+
+## New objects are tedious; more common to coerce objects
+
+```{r}
+x
+
+as_addr <- function(x) {
+  x_tags <-
+    parcel::tag_address(x) |>
+    as.list()
+  x_tags$street_number <- as.numeric(x_tags$street_number)
+  return(do.call(addr, c(x, x_tags)))
+}
+
+as_addr(x)
+```
+
+```{r}
+S7::method(print, addr) <- function(x, ...) {
+  glue::glue_data(props(x),
+                  "{street_number} ",
+                  "{stringr::str_to_title(street_name)} ",
+                  "{stringr::str_to_title(city)}, {toupper(state)} ",
+                  "{zip_code}") |>
+    cat()
+  cat("\n")
+}
+
+as_addr(x)
+
+str(as_addr(x))
+```
+
+```{r}
+my_addresses <-
+  c("224 Woolper Ave Cincinnati OH 45220",
+    "3333 Burnet Ave Cincinnati OH 45219")
+
+d <-
+  tibble::tibble(
+  id = 1:2,
+  address = purrr::map(my_addresses, as_addr)
+  )
+
+str(d)
+d$address
+```
+
+## get properties of addr objects
+
+```{r}
+d$zip_code <- purrr::map_chr(d$address, prop, "zip_code")
+```
+
+## applied example in {fr}
+
+https://cole-brokamp.github.io/fr
+
+# Thank You
+
+👨‍💻️ [github.com/cole-brokamp](https://github.com/cole-brokamp)  
+🐦 [@cole_brokamp](https://twitter.com/cole_brokamp)  
+📧 [cole.brokamp@cchmc.org](mailto:cole.brokamp@cchmc.org)  
+
