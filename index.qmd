@@ -29,14 +29,7 @@ format:
 
 A new Object Oriented System for R
 
-## Why do we need OOP in R?
-
-Most functional programming approaches use base classes and add code within functions to validate inputs based on class
-
-1. Handling more types of data causes the function to get bigger and bigger
-1. Only the author of the function can add new types
-
-## Intro to Object Oriented Programming
+## Intro to Object Oriented Programming (OOP)
 
 ### Polymorphism
 
@@ -50,14 +43,44 @@ summary(ggplot2::diamonds$carat)
 summary(ggplot2::diamonds$cut)
 ```
 
-## Intro to Object Oriented Programming
+## Why do we need OOP in R?
+
+Most functional programming approaches use base classes and add code within functions to validate inputs based on class
+
+
+```{r}
+#| eval: false
+
+geomark <- function(lat, lon) {
+  if (!is.numeric(lat)) {
+    stop("lat must be numeric")
+  }
+  else if (!is.numeric(lon)) {
+    stop("lon must be numeric")
+  }
+  else if (lat < -90 | lat > 90) {
+    stop("lat must be between -90 and 90")
+  }
+  else if (lon < -180 | lon > 180) {
+    stop("lon must be between -180 and 180")
+  }
+  . . .
+}
+```
+
+&nbsp;
+
+1. Handling more types of data causes the function to get bigger and bigger
+1. Only the author of the function can add new types
+
+## OOP Terminology
 
 **Generics** define behavior or what an object does  
 **Classes** define data or what an object is
 
 - Classes organized in a hierarchy so "fall back" parent method can be tried (**inheritance**)
-- For example, ordered factor in R inherits from a regular factor
-- Finding the correct method given an class is called **method dispatch**
+  - For example, ordered factor in R inherits from a regular factor
+- Finding the correct method given a class is called **method dispatch**
 
 ## OOP Paradigms
 
@@ -233,7 +256,7 @@ parcel::tag_address(my_address)
 parcel::tag_address("3333 Burnet Ave cincinnati oh 45219-2843")
 ```
 
-## Apply to all address in a tibble
+## Apply to all addresses in a tibble
 
 ```{r}
 d <-

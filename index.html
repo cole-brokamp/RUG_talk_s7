@@ -1233,16 +1233,8 @@ Cole Brokamp
 <h1>Introduction to S7</h1>
 <p>A new Object Oriented System for R</p>
 </section>
-<section id="why-do-we-need-oop-in-r" class="slide level2">
-<h2>Why do we need OOP in R?</h2>
-<p>Most functional programming approaches use base classes and add code within functions to validate inputs based on class</p>
-<ol type="1">
-<li>Handling more types of data causes the function to get bigger and bigger</li>
-<li>Only the author of the function can add new types</li>
-</ol>
-</section>
-<section id="intro-to-object-oriented-programming" class="slide level2">
-<h2>Intro to Object Oriented Programming</h2>
+<section id="intro-to-object-oriented-programming-oop" class="slide level2">
+<h2>Intro to Object Oriented Programming (OOP)</h2>
 <h3 id="polymorphism">Polymorphism</h3>
 <ul>
 <li>consider a function’s interface separately from its implementation</li>
@@ -1262,14 +1254,42 @@ Cole Brokamp
 </div>
 </div>
 </section>
-<section id="intro-to-object-oriented-programming-1" class="slide level2">
-<h2>Intro to Object Oriented Programming</h2>
+<section id="why-do-we-need-oop-in-r" class="slide level2">
+<h2>Why do we need OOP in R?</h2>
+<p>Most functional programming approaches use base classes and add code within functions to validate inputs based on class</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>geomark <span class="ot">&lt;-</span> <span class="cf">function</span>(lat, lon) {</span>
+<span id="cb5-2"><a href="#cb5-2"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(lat)) {</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="fu">stop</span>(<span class="st">&quot;lat must be numeric&quot;</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>  }</span>
+<span id="cb5-5"><a href="#cb5-5"></a>  <span class="cf">else</span> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">is.numeric</span>(lon)) {</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="fu">stop</span>(<span class="st">&quot;lon must be numeric&quot;</span>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>  }</span>
+<span id="cb5-8"><a href="#cb5-8"></a>  <span class="cf">else</span> <span class="cf">if</span> (lat <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span> <span class="sc">|</span> lat <span class="sc">&gt;</span> <span class="dv">90</span>) {</span>
+<span id="cb5-9"><a href="#cb5-9"></a>    <span class="fu">stop</span>(<span class="st">&quot;lat must be between -90 and 90&quot;</span>)</span>
+<span id="cb5-10"><a href="#cb5-10"></a>  }</span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="cf">else</span> <span class="cf">if</span> (lon <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">180</span> <span class="sc">|</span> lon <span class="sc">&gt;</span> <span class="dv">180</span>) {</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    <span class="fu">stop</span>(<span class="st">&quot;lon must be between -180 and 180&quot;</span>)</span>
+<span id="cb5-13"><a href="#cb5-13"></a>  }</span>
+<span id="cb5-14"><a href="#cb5-14"></a>  . . .</span>
+<span id="cb5-15"><a href="#cb5-15"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p> </p>
+<ol type="1">
+<li>Handling more types of data causes the function to get bigger and bigger</li>
+<li>Only the author of the function can add new types</li>
+</ol>
+</section>
+<section id="oop-terminology" class="slide level2">
+<h2>OOP Terminology</h2>
 <p><strong>Generics</strong> define behavior or what an object does<br>
 <strong>Classes</strong> define data or what an object is</p>
 <ul>
-<li>Classes organized in a hierarchy so “fall back” parent method can be tried (<strong>inheritance</strong>)</li>
+<li>Classes organized in a hierarchy so “fall back” parent method can be tried (<strong>inheritance</strong>)
+<ul>
 <li>For example, ordered factor in R inherits from a regular factor</li>
-<li>Finding the correct method given an class is called <strong>method dispatch</strong></li>
+</ul></li>
+<li>Finding the correct method given a class is called <strong>method dispatch</strong></li>
 </ul>
 </section>
 <section id="oop-paradigms" class="slide level2">
@@ -1297,19 +1317,19 @@ Cole Brokamp
 <section id="exploring-oop-in-r" class="slide level2">
 <h2>Exploring OOP in R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(sloop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(sloop)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">otype</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">otype</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;base&quot;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">otype</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">otype</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;S3&quot;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>mle_obj <span class="ot">&lt;-</span> stats4<span class="sc">::</span><span class="fu">mle</span>(<span class="cf">function</span>(<span class="at">x =</span> <span class="dv">1</span>) (x <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">^</span> <span class="dv">2</span>)</span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">otype</span>(mle_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>mle_obj <span class="ot">&lt;-</span> stats4<span class="sc">::</span><span class="fu">mle</span>(<span class="cf">function</span>(<span class="at">x =</span> <span class="dv">1</span>) (x <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">^</span> <span class="dv">2</span>)</span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">otype</span>(mle_obj)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;S4&quot;</code></pre>
 </div>
@@ -1319,12 +1339,12 @@ Cole Brokamp
 <h2>S3 in R</h2>
 <p>An S3 object is a base type with at least a <code>class</code> attribute:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>f <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">typeof</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>f <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>))</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">typeof</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;integer&quot;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">attributes</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">attributes</span>(f)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$levels
 [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;
@@ -1332,13 +1352,13 @@ Cole Brokamp
 $class
 [1] &quot;factor&quot;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">inherits</span>(f, <span class="st">&quot;factor&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">inherits</span>(f, <span class="st">&quot;factor&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] TRUE</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">s3_dispatch</span>(<span class="fu">print</span>(f))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">s3_dispatch</span>(<span class="fu">print</span>(f))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>=&gt; print.factor
  * print.default</code></pre>
@@ -1373,28 +1393,28 @@ $class
 <section id="using-s7-in-r" class="title-slide slide level1 center">
 <h1>Using S7 in R</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">library</span>(S7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a><span class="fu">library</span>(S7)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="using-s7-in-r-1" class="slide level2">
 <h2>Using S7 in R</h2>
 <p>Create a constructor function with the name of the class, property names and types:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>range <span class="ot">&lt;-</span></span>
-<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">new_class</span>(</span>
-<span id="cb21-3"><a href="#cb21-3"></a>    <span class="st">&quot;range&quot;</span>,</span>
-<span id="cb21-4"><a href="#cb21-4"></a>    <span class="at">properties =</span> <span class="fu">list</span>(</span>
-<span id="cb21-5"><a href="#cb21-5"></a>      <span class="at">start =</span> class_numeric,</span>
-<span id="cb21-6"><a href="#cb21-6"></a>      <span class="at">end =</span> class_numeric</span>
-<span id="cb21-7"><a href="#cb21-7"></a>    )</span>
-<span id="cb21-8"><a href="#cb21-8"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>range <span class="ot">&lt;-</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="fu">new_class</span>(</span>
+<span id="cb22-3"><a href="#cb22-3"></a>    <span class="st">&quot;range&quot;</span>,</span>
+<span id="cb22-4"><a href="#cb22-4"></a>    <span class="at">properties =</span> <span class="fu">list</span>(</span>
+<span id="cb22-5"><a href="#cb22-5"></a>      <span class="at">start =</span> class_numeric,</span>
+<span id="cb22-6"><a href="#cb22-6"></a>      <span class="at">end =</span> class_numeric</span>
+<span id="cb22-7"><a href="#cb22-7"></a>    )</span>
+<span id="cb22-8"><a href="#cb22-8"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="section-1" class="slide level2">
 <h2></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>x <span class="ot">&lt;-</span> <span class="fu">range</span>(<span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">10</span>)</span>
-<span id="cb22-2"><a href="#cb22-2"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>x <span class="ot">&lt;-</span> <span class="fu">range</span>(<span class="at">start =</span> <span class="dv">1</span>, <span class="at">end =</span> <span class="dv">10</span>)</span>
+<span id="cb23-2"><a href="#cb23-2"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;range&gt;
  @ start: num 1
@@ -1403,12 +1423,12 @@ $class
 </div>
 <p> </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>x<span class="sc">@</span>start</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>x<span class="sc">@</span>start</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>x<span class="sc">@</span>end <span class="ot">&lt;-</span> <span class="dv">20</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a>x<span class="sc">@</span>end <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a>x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;range&gt;
  @ start: num 1
@@ -1417,7 +1437,7 @@ $class
 </div>
 <p> </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a>x<span class="sc">@</span>end <span class="ot">&lt;-</span> <span class="st">&quot;x&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>x<span class="sc">@</span>end <span class="ot">&lt;-</span> <span class="st">&quot;x&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error: &lt;range&gt;@end must be &lt;integer&gt; or &lt;double&gt;, not &lt;character&gt;</code></pre>
 </div>
@@ -1426,7 +1446,7 @@ $class
 <section id="use-validators-to-prevent-wrong-objects-from-being-created" class="slide level2">
 <h2>Use validators to prevent “wrong” objects from being created</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="fu">range</span>(<span class="at">start =</span> <span class="dv">10</span>, <span class="at">end =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">range</span>(<span class="at">start =</span> <span class="dv">10</span>, <span class="at">end =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;range&gt;
  @ start: num 10
@@ -1435,33 +1455,33 @@ $class
 </div>
 <p> </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>range <span class="ot">&lt;-</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>  <span class="fu">new_class</span>(<span class="st">&quot;range&quot;</span>,</span>
-<span id="cb32-3"><a href="#cb32-3"></a>    <span class="at">properties =</span> <span class="fu">list</span>(</span>
-<span id="cb32-4"><a href="#cb32-4"></a>      <span class="at">start =</span> class_numeric,</span>
-<span id="cb32-5"><a href="#cb32-5"></a>      <span class="at">end =</span> class_numeric</span>
-<span id="cb32-6"><a href="#cb32-6"></a>    ),</span>
-<span id="cb32-7"><a href="#cb32-7"></a>    <span class="at">validator =</span> <span class="cf">function</span>(self) {</span>
-<span id="cb32-8"><a href="#cb32-8"></a>      <span class="cf">if</span> (<span class="fu">length</span>(self<span class="sc">@</span>start) <span class="sc">!=</span> <span class="dv">1</span>) {</span>
-<span id="cb32-9"><a href="#cb32-9"></a>        <span class="st">&quot;@start must be length 1&quot;</span></span>
-<span id="cb32-10"><a href="#cb32-10"></a>      } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">length</span>(self<span class="sc">@</span>end) <span class="sc">!=</span> <span class="dv">1</span>) {</span>
-<span id="cb32-11"><a href="#cb32-11"></a>        <span class="st">&quot;@end must be length 1&quot;</span></span>
-<span id="cb32-12"><a href="#cb32-12"></a>      } <span class="cf">else</span> <span class="cf">if</span> (self<span class="sc">@</span>end <span class="sc">&lt;</span> self<span class="sc">@</span>start) {</span>
-<span id="cb32-13"><a href="#cb32-13"></a>        <span class="st">&quot;@end must be greater than or equal to @start&quot;</span></span>
-<span id="cb32-14"><a href="#cb32-14"></a>      }</span>
-<span id="cb32-15"><a href="#cb32-15"></a>    })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>range <span class="ot">&lt;-</span></span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="fu">new_class</span>(<span class="st">&quot;range&quot;</span>,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>    <span class="at">properties =</span> <span class="fu">list</span>(</span>
+<span id="cb33-4"><a href="#cb33-4"></a>      <span class="at">start =</span> class_numeric,</span>
+<span id="cb33-5"><a href="#cb33-5"></a>      <span class="at">end =</span> class_numeric</span>
+<span id="cb33-6"><a href="#cb33-6"></a>    ),</span>
+<span id="cb33-7"><a href="#cb33-7"></a>    <span class="at">validator =</span> <span class="cf">function</span>(self) {</span>
+<span id="cb33-8"><a href="#cb33-8"></a>      <span class="cf">if</span> (<span class="fu">length</span>(self<span class="sc">@</span>start) <span class="sc">!=</span> <span class="dv">1</span>) {</span>
+<span id="cb33-9"><a href="#cb33-9"></a>        <span class="st">&quot;@start must be length 1&quot;</span></span>
+<span id="cb33-10"><a href="#cb33-10"></a>      } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">length</span>(self<span class="sc">@</span>end) <span class="sc">!=</span> <span class="dv">1</span>) {</span>
+<span id="cb33-11"><a href="#cb33-11"></a>        <span class="st">&quot;@end must be length 1&quot;</span></span>
+<span id="cb33-12"><a href="#cb33-12"></a>      } <span class="cf">else</span> <span class="cf">if</span> (self<span class="sc">@</span>end <span class="sc">&lt;</span> self<span class="sc">@</span>start) {</span>
+<span id="cb33-13"><a href="#cb33-13"></a>        <span class="st">&quot;@end must be greater than or equal to @start&quot;</span></span>
+<span id="cb33-14"><a href="#cb33-14"></a>      }</span>
+<span id="cb33-15"><a href="#cb33-15"></a>    })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="create-new-generic-methods-for-the-new-class" class="slide level2">
 <h2>Create new generic methods for the new class</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>inside <span class="ot">&lt;-</span> <span class="fu">new_generic</span>(<span class="st">&quot;inside&quot;</span>, <span class="st">&quot;x&quot;</span>)</span>
-<span id="cb33-2"><a href="#cb33-2"></a></span>
-<span id="cb33-3"><a href="#cb33-3"></a><span class="fu">method</span>(inside, range) <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
-<span id="cb33-4"><a href="#cb33-4"></a>  y <span class="sc">&gt;=</span> x<span class="sc">@</span>start <span class="sc">&amp;</span> y <span class="sc">&lt;=</span> x<span class="sc">@</span>end</span>
-<span id="cb33-5"><a href="#cb33-5"></a>}</span>
-<span id="cb33-6"><a href="#cb33-6"></a></span>
-<span id="cb33-7"><a href="#cb33-7"></a><span class="fu">inside</span>(x, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>inside <span class="ot">&lt;-</span> <span class="fu">new_generic</span>(<span class="st">&quot;inside&quot;</span>, <span class="st">&quot;x&quot;</span>)</span>
+<span id="cb34-2"><a href="#cb34-2"></a></span>
+<span id="cb34-3"><a href="#cb34-3"></a><span class="fu">method</span>(inside, range) <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) {</span>
+<span id="cb34-4"><a href="#cb34-4"></a>  y <span class="sc">&gt;=</span> x<span class="sc">@</span>start <span class="sc">&amp;</span> y <span class="sc">&lt;=</span> x<span class="sc">@</span>end</span>
+<span id="cb34-5"><a href="#cb34-5"></a>}</span>
+<span id="cb34-6"><a href="#cb34-6"></a></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="fu">inside</span>(x, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE  TRUE  TRUE</code></pre>
 </div>
@@ -1476,19 +1496,19 @@ $class
 <h2>Address Character Strings</h2>
 <p>Addresses often stored as combined strings or can be concatenated from other address components (e.g., “address line 1” and “address line 2”)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>my_address <span class="ot">&lt;-</span> <span class="st">&quot;3333 Burnet ave cincinnati OH 45219&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>my_address <span class="ot">&lt;-</span> <span class="st">&quot;3333 Burnet ave cincinnati OH 45219&quot;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Cleaning and tagging the address extracts components using open natural language processing models:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a>parcel<span class="sc">::</span><span class="fu">tag_address</span>(my_address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1"></a>parcel<span class="sc">::</span><span class="fu">tag_address</span>(my_address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 5
   street_number street_name city       state zip_code
   &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;   
 1 3333          burnet ave  cincinnati oh    45219   </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1"></a>parcel<span class="sc">::</span><span class="fu">tag_address</span>(<span class="st">&quot;3333 Burnet Ave cincinnati oh 45219-2843&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>parcel<span class="sc">::</span><span class="fu">tag_address</span>(<span class="st">&quot;3333 Burnet Ave cincinnati oh 45219-2843&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 5
   street_number street_name city       state zip_code
@@ -1498,17 +1518,17 @@ $class
 </div>
 </div>
 </section>
-<section id="apply-to-all-address-in-a-tibble" class="slide level2">
-<h2>Apply to all address in a tibble</h2>
+<section id="apply-to-all-addresses-in-a-tibble" class="slide level2">
+<h2>Apply to all addresses in a tibble</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a>d <span class="ot">&lt;-</span></span>
-<span id="cb40-2"><a href="#cb40-2"></a>  tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb40-3"><a href="#cb40-3"></a>                 <span class="at">address =</span> <span class="fu">rep</span>(my_address, <span class="at">times =</span> <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb40-4"><a href="#cb40-4"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">parsed_address =</span> purrr<span class="sc">::</span><span class="fu">map</span>(address, parcel<span class="sc">::</span>tag_address))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>d <span class="ot">&lt;-</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a>  tibble<span class="sc">::</span><span class="fu">tibble</span>(<span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb41-3"><a href="#cb41-3"></a>                 <span class="at">address =</span> <span class="fu">rep</span>(my_address, <span class="at">times =</span> <span class="dv">3</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">parsed_address =</span> purrr<span class="sc">::</span><span class="fu">map</span>(address, parcel<span class="sc">::</span>tag_address))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 3
      id address                             parsed_address  
@@ -1517,7 +1537,7 @@ $class
 2     2 3333 Burnet ave cincinnati OH 45219 &lt;tibble [1 × 5]&gt;
 3     3 3333 Burnet ave cincinnati OH 45219 &lt;tibble [1 × 5]&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">str</span>(d<span class="sc">$</span>parsed_address[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">str</span>(d<span class="sc">$</span>parsed_address[[<span class="dv">1</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>tibble [1 × 5] (S3: tbl_df/tbl/data.frame)
  $ street_number: chr &quot;3333&quot;
@@ -1533,7 +1553,7 @@ $class
 <h2>Challenge</h2>
 <p>With a tibble full of addresses, how can we maintain tidy data with a character string returning a tibble with five columns?</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>tidyr<span class="sc">::</span><span class="fu">unnest</span>(d, <span class="at">cols =</span> parsed_address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a>tidyr<span class="sc">::</span><span class="fu">unnest</span>(d, <span class="at">cols =</span> parsed_address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 7
      id address                   street_number street_name city  state zip_code
@@ -1553,35 +1573,35 @@ $class
 <section id="define-a-new-class-with-s7" class="slide level2">
 <h2>Define a New Class with S7</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">library</span>(S7)</span>
-<span id="cb47-2"><a href="#cb47-2"></a></span>
-<span id="cb47-3"><a href="#cb47-3"></a>addr <span class="ot">&lt;-</span> <span class="fu">new_class</span>(</span>
-<span id="cb47-4"><a href="#cb47-4"></a>  <span class="st">&quot;addr&quot;</span>,</span>
-<span id="cb47-5"><a href="#cb47-5"></a>  <span class="at">parent =</span> class_character,</span>
-<span id="cb47-6"><a href="#cb47-6"></a>  <span class="at">properties =</span> <span class="fu">list</span>(</span>
-<span id="cb47-7"><a href="#cb47-7"></a>    <span class="at">street_number =</span> class_numeric,</span>
-<span id="cb47-8"><a href="#cb47-8"></a>    <span class="at">street_name =</span> class_character,</span>
-<span id="cb47-9"><a href="#cb47-9"></a>    <span class="at">city =</span> class_character,</span>
-<span id="cb47-10"><a href="#cb47-10"></a>    <span class="at">state =</span> class_character,</span>
-<span id="cb47-11"><a href="#cb47-11"></a>    <span class="at">zip_code =</span> class_character</span>
-<span id="cb47-12"><a href="#cb47-12"></a>  ),</span>
-<span id="cb47-13"><a href="#cb47-13"></a>  <span class="at">validator =</span> <span class="cf">function</span>(self) {</span>
-<span id="cb47-14"><a href="#cb47-14"></a>    <span class="cf">if</span> (<span class="fu">any</span>(<span class="fu">nchar</span>(self<span class="sc">@</span>zip_code) <span class="sc">!=</span> <span class="dv">5</span>)) {</span>
-<span id="cb47-15"><a href="#cb47-15"></a>      <span class="st">&quot;@zip_code must contain five characters&quot;</span></span>
-<span id="cb47-16"><a href="#cb47-16"></a>    }</span>
-<span id="cb47-17"><a href="#cb47-17"></a>  }</span>
-<span id="cb47-18"><a href="#cb47-18"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">library</span>(S7)</span>
+<span id="cb48-2"><a href="#cb48-2"></a></span>
+<span id="cb48-3"><a href="#cb48-3"></a>addr <span class="ot">&lt;-</span> <span class="fu">new_class</span>(</span>
+<span id="cb48-4"><a href="#cb48-4"></a>  <span class="st">&quot;addr&quot;</span>,</span>
+<span id="cb48-5"><a href="#cb48-5"></a>  <span class="at">parent =</span> class_character,</span>
+<span id="cb48-6"><a href="#cb48-6"></a>  <span class="at">properties =</span> <span class="fu">list</span>(</span>
+<span id="cb48-7"><a href="#cb48-7"></a>    <span class="at">street_number =</span> class_numeric,</span>
+<span id="cb48-8"><a href="#cb48-8"></a>    <span class="at">street_name =</span> class_character,</span>
+<span id="cb48-9"><a href="#cb48-9"></a>    <span class="at">city =</span> class_character,</span>
+<span id="cb48-10"><a href="#cb48-10"></a>    <span class="at">state =</span> class_character,</span>
+<span id="cb48-11"><a href="#cb48-11"></a>    <span class="at">zip_code =</span> class_character</span>
+<span id="cb48-12"><a href="#cb48-12"></a>  ),</span>
+<span id="cb48-13"><a href="#cb48-13"></a>  <span class="at">validator =</span> <span class="cf">function</span>(self) {</span>
+<span id="cb48-14"><a href="#cb48-14"></a>    <span class="cf">if</span> (<span class="fu">any</span>(<span class="fu">nchar</span>(self<span class="sc">@</span>zip_code) <span class="sc">!=</span> <span class="dv">5</span>)) {</span>
+<span id="cb48-15"><a href="#cb48-15"></a>      <span class="st">&quot;@zip_code must contain five characters&quot;</span></span>
+<span id="cb48-16"><a href="#cb48-16"></a>    }</span>
+<span id="cb48-17"><a href="#cb48-17"></a>  }</span>
+<span id="cb48-18"><a href="#cb48-18"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="creating-a-new-addr-object" class="slide level2">
 <h2>Creating a new <code>addr</code> object</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">addr</span>(<span class="st">&quot;3333 Burnet Ave Cincinnati OH 45219&quot;</span>,</span>
-<span id="cb48-2"><a href="#cb48-2"></a>     <span class="at">street_number =</span> <span class="dv">3333</span>,</span>
-<span id="cb48-3"><a href="#cb48-3"></a>     <span class="at">street_name =</span> <span class="st">&quot;Burnet Ave&quot;</span>,</span>
-<span id="cb48-4"><a href="#cb48-4"></a>     <span class="at">city =</span> <span class="st">&quot;Cincinnati&quot;</span>,</span>
-<span id="cb48-5"><a href="#cb48-5"></a>     <span class="at">state =</span> <span class="st">&quot;OH&quot;</span>,</span>
-<span id="cb48-6"><a href="#cb48-6"></a>     <span class="at">zip_code =</span> <span class="st">&quot;45219&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">addr</span>(<span class="st">&quot;3333 Burnet Ave Cincinnati OH 45219&quot;</span>,</span>
+<span id="cb49-2"><a href="#cb49-2"></a>     <span class="at">street_number =</span> <span class="dv">3333</span>,</span>
+<span id="cb49-3"><a href="#cb49-3"></a>     <span class="at">street_name =</span> <span class="st">&quot;Burnet Ave&quot;</span>,</span>
+<span id="cb49-4"><a href="#cb49-4"></a>     <span class="at">city =</span> <span class="st">&quot;Cincinnati&quot;</span>,</span>
+<span id="cb49-5"><a href="#cb49-5"></a>     <span class="at">state =</span> <span class="st">&quot;OH&quot;</span>,</span>
+<span id="cb49-6"><a href="#cb49-6"></a>     <span class="at">zip_code =</span> <span class="st">&quot;45219&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;addr&gt; chr &quot;3333 Burnet Ave Cincinnati OH 45219&quot;
  @ street_number: num 3333
@@ -1596,12 +1616,12 @@ $class
 <h2>Helpful validation</h2>
 <p>This comes with validation for classes of arguments:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1"></a><span class="fu">addr</span>(<span class="st">&quot;3333 Burnet Ave Cincinnati OH 45219&quot;</span>,</span>
-<span id="cb50-2"><a href="#cb50-2"></a>     <span class="at">street_number =</span> <span class="st">&quot;3333&quot;</span>,</span>
-<span id="cb50-3"><a href="#cb50-3"></a>     <span class="at">street_name =</span> <span class="st">&quot;Burnet Ave&quot;</span>,</span>
-<span id="cb50-4"><a href="#cb50-4"></a>     <span class="at">city =</span> <span class="st">&quot;Cincinnati&quot;</span>,</span>
-<span id="cb50-5"><a href="#cb50-5"></a>     <span class="at">state =</span> <span class="st">&quot;OH&quot;</span>,</span>
-<span id="cb50-6"><a href="#cb50-6"></a>     <span class="at">zip_code =</span> <span class="st">&quot;45219&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">addr</span>(<span class="st">&quot;3333 Burnet Ave Cincinnati OH 45219&quot;</span>,</span>
+<span id="cb51-2"><a href="#cb51-2"></a>     <span class="at">street_number =</span> <span class="st">&quot;3333&quot;</span>,</span>
+<span id="cb51-3"><a href="#cb51-3"></a>     <span class="at">street_name =</span> <span class="st">&quot;Burnet Ave&quot;</span>,</span>
+<span id="cb51-4"><a href="#cb51-4"></a>     <span class="at">city =</span> <span class="st">&quot;Cincinnati&quot;</span>,</span>
+<span id="cb51-5"><a href="#cb51-5"></a>     <span class="at">state =</span> <span class="st">&quot;OH&quot;</span>,</span>
+<span id="cb51-6"><a href="#cb51-6"></a>     <span class="at">zip_code =</span> <span class="st">&quot;45219&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error: &lt;addr&gt; object properties are invalid:
 - @street_number must be &lt;integer&gt; or &lt;double&gt;, not &lt;character&gt;</code></pre>
@@ -1609,12 +1629,12 @@ $class
 </div>
 <p>and for anything defined in the validator:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1"></a><span class="fu">addr</span>(<span class="st">&quot;3333 Burnet Ave Cincinnati OH 45219&quot;</span>,</span>
-<span id="cb52-2"><a href="#cb52-2"></a>     <span class="at">street_number =</span> <span class="dv">3333</span>,</span>
-<span id="cb52-3"><a href="#cb52-3"></a>     <span class="at">street_name =</span> <span class="st">&quot;Burnet Ave&quot;</span>,</span>
-<span id="cb52-4"><a href="#cb52-4"></a>     <span class="at">city =</span> <span class="st">&quot;Cincinnati&quot;</span>,</span>
-<span id="cb52-5"><a href="#cb52-5"></a>     <span class="at">state =</span> <span class="st">&quot;OH&quot;</span>,</span>
-<span id="cb52-6"><a href="#cb52-6"></a>     <span class="at">zip_code =</span> <span class="st">&quot;45219-2234&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">addr</span>(<span class="st">&quot;3333 Burnet Ave Cincinnati OH 45219&quot;</span>,</span>
+<span id="cb53-2"><a href="#cb53-2"></a>     <span class="at">street_number =</span> <span class="dv">3333</span>,</span>
+<span id="cb53-3"><a href="#cb53-3"></a>     <span class="at">street_name =</span> <span class="st">&quot;Burnet Ave&quot;</span>,</span>
+<span id="cb53-4"><a href="#cb53-4"></a>     <span class="at">city =</span> <span class="st">&quot;Cincinnati&quot;</span>,</span>
+<span id="cb53-5"><a href="#cb53-5"></a>     <span class="at">state =</span> <span class="st">&quot;OH&quot;</span>,</span>
+<span id="cb53-6"><a href="#cb53-6"></a>     <span class="at">zip_code =</span> <span class="st">&quot;45219-2234&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error: &lt;addr&gt; object is invalid:
 - @zip_code must contain five characters</code></pre>
@@ -1624,24 +1644,24 @@ $class
 <section id="new-objects-are-tedious-more-common-to-coerce-objects" class="slide level2">
 <h2>New objects are tedious; more common to coerce objects</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1"></a>my_address</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a>my_address</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] &quot;3333 Burnet ave cincinnati OH 45219&quot;</code></pre>
 </div>
 </div>
 <p> </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1"></a>as_addr <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb56-2"><a href="#cb56-2"></a>  x_tags <span class="ot">&lt;-</span></span>
-<span id="cb56-3"><a href="#cb56-3"></a>    parcel<span class="sc">::</span><span class="fu">tag_address</span>(x) <span class="sc">|&gt;</span></span>
-<span id="cb56-4"><a href="#cb56-4"></a>    <span class="fu">as.list</span>()</span>
-<span id="cb56-5"><a href="#cb56-5"></a>  x_tags<span class="sc">$</span>street_number <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x_tags<span class="sc">$</span>street_number)</span>
-<span id="cb56-6"><a href="#cb56-6"></a>  <span class="fu">return</span>(<span class="fu">do.call</span>(addr, <span class="fu">c</span>(x, x_tags)))</span>
-<span id="cb56-7"><a href="#cb56-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a>as_addr <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb57-2"><a href="#cb57-2"></a>  x_tags <span class="ot">&lt;-</span></span>
+<span id="cb57-3"><a href="#cb57-3"></a>    parcel<span class="sc">::</span><span class="fu">tag_address</span>(x) <span class="sc">|&gt;</span></span>
+<span id="cb57-4"><a href="#cb57-4"></a>    <span class="fu">as.list</span>()</span>
+<span id="cb57-5"><a href="#cb57-5"></a>  x_tags<span class="sc">$</span>street_number <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x_tags<span class="sc">$</span>street_number)</span>
+<span id="cb57-6"><a href="#cb57-6"></a>  <span class="fu">return</span>(<span class="fu">do.call</span>(addr, <span class="fu">c</span>(x, x_tags)))</span>
+<span id="cb57-7"><a href="#cb57-7"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p> </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">as_addr</span>(my_address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1"></a><span class="fu">as_addr</span>(my_address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;addr&gt; chr &quot;3333 Burnet ave cincinnati OH 45219&quot;
  @ street_number: num 3333
@@ -1655,24 +1675,24 @@ $class
 <section id="create-a-custom-print-method" class="slide level2">
 <h2>Create a custom print method</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a>S7<span class="sc">::</span><span class="fu">method</span>(print, addr) <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
-<span id="cb59-2"><a href="#cb59-2"></a>  glue<span class="sc">::</span><span class="fu">glue_data</span>(<span class="fu">props</span>(x),</span>
-<span id="cb59-3"><a href="#cb59-3"></a>                  <span class="st">&quot;{street_number} &quot;</span>,</span>
-<span id="cb59-4"><a href="#cb59-4"></a>                  <span class="st">&quot;{stringr::str_to_title(street_name)} &quot;</span>,</span>
-<span id="cb59-5"><a href="#cb59-5"></a>                  <span class="st">&quot;{stringr::str_to_title(city)}, {toupper(state)} &quot;</span>,</span>
-<span id="cb59-6"><a href="#cb59-6"></a>                  <span class="st">&quot;{zip_code}&quot;</span>) <span class="sc">|&gt;</span></span>
-<span id="cb59-7"><a href="#cb59-7"></a>    <span class="fu">cat</span>()</span>
-<span id="cb59-8"><a href="#cb59-8"></a>  <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb59-9"><a href="#cb59-9"></a>}</span>
-<span id="cb59-10"><a href="#cb59-10"></a></span>
-<span id="cb59-11"><a href="#cb59-11"></a><span class="fu">as_addr</span>(my_address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1"></a>S7<span class="sc">::</span><span class="fu">method</span>(print, addr) <span class="ot">&lt;-</span> <span class="cf">function</span>(x, ...) {</span>
+<span id="cb60-2"><a href="#cb60-2"></a>  glue<span class="sc">::</span><span class="fu">glue_data</span>(<span class="fu">props</span>(x),</span>
+<span id="cb60-3"><a href="#cb60-3"></a>                  <span class="st">&quot;{street_number} &quot;</span>,</span>
+<span id="cb60-4"><a href="#cb60-4"></a>                  <span class="st">&quot;{stringr::str_to_title(street_name)} &quot;</span>,</span>
+<span id="cb60-5"><a href="#cb60-5"></a>                  <span class="st">&quot;{stringr::str_to_title(city)}, {toupper(state)} &quot;</span>,</span>
+<span id="cb60-6"><a href="#cb60-6"></a>                  <span class="st">&quot;{zip_code}&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb60-7"><a href="#cb60-7"></a>    <span class="fu">cat</span>()</span>
+<span id="cb60-8"><a href="#cb60-8"></a>  <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb60-9"><a href="#cb60-9"></a>}</span>
+<span id="cb60-10"><a href="#cb60-10"></a></span>
+<span id="cb60-11"><a href="#cb60-11"></a><span class="fu">as_addr</span>(my_address)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>3333 Burnet Ave Cincinnati, OH 45219</code></pre>
 </div>
 </div>
 <p> </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1"></a><span class="fu">str</span>(<span class="fu">as_addr</span>(my_address))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1"></a><span class="fu">str</span>(<span class="fu">as_addr</span>(my_address))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>&lt;addr&gt; chr &quot;3333 Burnet ave cincinnati OH 45219&quot;
  @ street_number: num 3333
@@ -1686,17 +1706,17 @@ $class
 <section id="print-works-inside-tibbles" class="slide level2">
 <h2>Print works inside tibbles</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>my_addresses <span class="ot">&lt;-</span></span>
-<span id="cb63-2"><a href="#cb63-2"></a>  <span class="fu">c</span>(<span class="st">&quot;224 Woolper Ave Cincinnati OH 45220&quot;</span>,</span>
-<span id="cb63-3"><a href="#cb63-3"></a>    <span class="st">&quot;3333 Burnet Ave Cincinnati OH 45219&quot;</span>)</span>
-<span id="cb63-4"><a href="#cb63-4"></a></span>
-<span id="cb63-5"><a href="#cb63-5"></a>d <span class="ot">&lt;-</span></span>
-<span id="cb63-6"><a href="#cb63-6"></a>  tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
-<span id="cb63-7"><a href="#cb63-7"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
-<span id="cb63-8"><a href="#cb63-8"></a>  <span class="at">address =</span> purrr<span class="sc">::</span><span class="fu">map</span>(my_addresses, as_addr)</span>
-<span id="cb63-9"><a href="#cb63-9"></a>  )</span>
-<span id="cb63-10"><a href="#cb63-10"></a></span>
-<span id="cb63-11"><a href="#cb63-11"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1"></a>my_addresses <span class="ot">&lt;-</span></span>
+<span id="cb64-2"><a href="#cb64-2"></a>  <span class="fu">c</span>(<span class="st">&quot;224 Woolper Ave Cincinnati OH 45220&quot;</span>,</span>
+<span id="cb64-3"><a href="#cb64-3"></a>    <span class="st">&quot;3333 Burnet Ave Cincinnati OH 45219&quot;</span>)</span>
+<span id="cb64-4"><a href="#cb64-4"></a></span>
+<span id="cb64-5"><a href="#cb64-5"></a>d <span class="ot">&lt;-</span></span>
+<span id="cb64-6"><a href="#cb64-6"></a>  tibble<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb64-7"><a href="#cb64-7"></a>  <span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb64-8"><a href="#cb64-8"></a>  <span class="at">address =</span> purrr<span class="sc">::</span><span class="fu">map</span>(my_addresses, as_addr)</span>
+<span id="cb64-9"><a href="#cb64-9"></a>  )</span>
+<span id="cb64-10"><a href="#cb64-10"></a></span>
+<span id="cb64-11"><a href="#cb64-11"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
      id address   
@@ -1707,7 +1727,7 @@ $class
 </div>
 <p> </p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1"></a>d<span class="sc">$</span>address</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1"></a>d<span class="sc">$</span>address</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
 224 Woolper Ave Cincinnati, OH 45220
@@ -1720,9 +1740,9 @@ $class
 <section id="extract-properties-to-get-at-individual-address-components" class="slide level2">
 <h2>Extract properties to get at individual address components</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1"></a>d<span class="sc">$</span>zip_code <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(d<span class="sc">$</span>address, prop, <span class="st">&quot;zip_code&quot;</span>)</span>
-<span id="cb67-2"><a href="#cb67-2"></a></span>
-<span id="cb67-3"><a href="#cb67-3"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1"></a>d<span class="sc">$</span>zip_code <span class="ot">&lt;-</span> purrr<span class="sc">::</span><span class="fu">map_chr</span>(d<span class="sc">$</span>address, prop, <span class="st">&quot;zip_code&quot;</span>)</span>
+<span id="cb68-2"><a href="#cb68-2"></a></span>
+<span id="cb68-3"><a href="#cb68-3"></a>d</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
      id address    zip_code
